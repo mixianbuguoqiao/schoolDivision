@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>点击地图获取地址和经纬度map，address，lng，lat</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!-- 将百度地图API引入，设置好自己的key -->
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=mZ2Kx8zETaYQIxBOwn1tl32d9uAWn2iz"></script>
+</head>
+<body>
+
+<div class="main-div">
+    <form method="post" action="" name="theForm" enctype="multipart/form-data" οnsubmit="return validate()">
+        <table cellspacing="1" cellpadding="3" width="100%">
+            <tr>
+                <td class="label">经度</td>
+                <td><input type="text" name="lng" id="lng" value=""/>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">纬度</td>
+                <td><input type="text" name="lat" id="lat" value=""/>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">地址</td>
+                <td>
+                    <input type='text' value='' name='sever_add' id='sever_add' readonly>
+                    <input type='button' value='点击显示地图获取地址经纬度' id='open'>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <div id='allmap' style='width: 50%; height: 50%; position: absolute; display: none'></div>
+</div>
+</body>
+</html>
+
