@@ -1,5 +1,6 @@
 from flask import Flask,render_template,request,flash,redirect,url_for
 import os
+import json
 from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = 'upload'
@@ -20,6 +21,7 @@ def hello_world():
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
+    data = None
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -33,11 +35,22 @@ def upload_file():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('uploaded_file',
-                                    filename=filename))
+            file_dir = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(file_dir)
+            data = analysis_json(file_dir)
     print("------okok----okok")
-    return ''
+    return render_template('index.html',data)
+
+def analysis_json(file_dir):
+    location = []
+    if file_dir.split('.')[-1] != 'json':
+        return location
+    with open(file_dir, encoding='utf-8') as f:
+        content = json.loads(f.read())
+        for key in content.keys():
+            location.extend(content[key])
+    return location
+
 
 if __name__ == '__main__':
     app.run()
